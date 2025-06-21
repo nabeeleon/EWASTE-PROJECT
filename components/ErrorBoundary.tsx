@@ -1,5 +1,6 @@
 'use client'
 
+// Error boundary component for handling React errors gracefully
 import { motion } from 'framer-motion'
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary'
 
