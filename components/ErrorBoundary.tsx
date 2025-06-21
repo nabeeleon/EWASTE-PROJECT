@@ -1,4 +1,4 @@
-“clean it up and restore all sections” and I’ll do it!'use client'
+'use client'
 
 import { motion } from 'framer-motion'
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary'
