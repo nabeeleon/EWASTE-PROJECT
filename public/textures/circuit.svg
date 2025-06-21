@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="circuit" x="0" y="0" width="64" height="64" patternUnits="userSpaceOnUse">
+      <!-- Circuit lines -->
+      <path d="M32 0v24M32 40v24M0 32h24M40 32h24" stroke="#00ffff" stroke-width="2" fill="none"/>
+      <path d="M32 24a8 8 0 1 0 0 16 8 8 0 1 0 0-16z" fill="#00ffff"/>
+      
+      <!-- Connection points -->
+      <circle cx="0" cy="32" r="3" fill="#00ffff"/>
+      <circle cx="64" cy="32" r="3" fill="#00ffff"/>
+      <circle cx="32" cy="0" r="3" fill="#00ffff"/>
+      <circle cx="32" cy="64" r="3" fill="#00ffff"/>
+      
+      <!-- Additional circuit elements -->
+      <path d="M8 8l16 16M8 24l16-16" stroke="#00ffff" stroke-width="1" fill="none"/>
+      <path d="M40 40l16 16M40 56l16-16" stroke="#00ffff" stroke-width="1" fill="none"/>
+    </pattern>
+  </defs>
+  
+  <!-- Apply the pattern to fill the entire SVG -->
+  <rect width="512" height="512" fill="url(#circuit)"/>
+</svg> 
