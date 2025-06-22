@@ -103,117 +103,112 @@ export default function Solutions3D() {
         ))}
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 py-20">
+      <div className="relative z-10">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-            Innovative Solutions
-          </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Discover cutting-edge approaches to e-waste management that combine technology, 
-            sustainability, and community impact for a cleaner future.
-          </p>
-        </motion.div>
+        <div className="py-20 bg-slate-900/70 backdrop-blur-sm">
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+          >
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+              Innovative Solutions
+            </h1>
+            <p className="text-xl text-gray-300 leading-relaxed">
+              Discover cutting-edge approaches to e-waste management that combine technology, 
+              sustainability, and community impact for a cleaner future.
+            </p>
+          </motion.div>
+        </div>
 
         {/* Solutions Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto"
-        >
-          {solutions.map((solution, index) => (
-            <motion.div
-              key={solution.id}
-              variants={cardVariants}
-              whileHover={{ 
-                scale: 1.05,
-                transition: { duration: 0.2 }
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="relative group"
-            >
-              <div 
-                className="relative h-full bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl 
-                           border border-gray-700/50 rounded-2xl p-8 overflow-hidden
-                           hover:border-cyan-400/50 transition-all duration-300
-                           shadow-2xl hover:shadow-cyan-500/20"
-                onMouseEnter={() => setActiveCard(solution.id)}
-                onMouseLeave={() => setActiveCard(null)}
+        <div className="py-16">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+          >
+            {solutions.map((solution, index) => (
+              <motion.div
+                key={solution.id}
+                variants={cardVariants}
+                whileHover={{ 
+                  scale: 1.05,
+                  transition: { duration: 0.2 }
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="relative group"
               >
-                {/* Animated Background Gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${solution.color} opacity-0 
-                                group-hover:opacity-10 transition-opacity duration-500`} />
-                
-                {/* Icon */}
-                <motion.div
-                  variants={floatingVariants}
-                  animate="animate"
-                  className="text-6xl mb-6 text-center"
+                <div 
+                  className="relative h-full bg-slate-800/60 backdrop-blur-lg 
+                             border border-slate-700 rounded-3xl p-8 overflow-hidden
+                             hover:border-slate-500 transition-all duration-300"
+                  onMouseEnter={() => setActiveCard(solution.id)}
+                  onMouseLeave={() => setActiveCard(null)}
                 >
-                  {solution.icon}
-                </motion.div>
+                  {/* Animated Background Gradient */}
+                  <div className={`absolute -inset-2 bg-gradient-to-br ${solution.color} opacity-0 blur-xl
+                                  group-hover:opacity-10 transition-opacity duration-500`} />
+                  
+                  {/* Icon */}
+                  <motion.div
+                    variants={floatingVariants}
+                    animate="animate"
+                    className="text-6xl mb-6 text-center"
+                  >
+                    {solution.icon}
+                  </motion.div>
 
-                {/* Content */}
-                <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-cyan-400 transition-colors">
-                  {solution.title}
-                </h3>
-                
-                <p className="text-gray-300 mb-6 leading-relaxed">
-                  {solution.description}
-                </p>
+                  {/* Content */}
+                  <h3 className="text-2xl font-bold mb-4 text-slate-200 transition-colors">
+                    {solution.title}
+                  </h3>
+                  
+                  <p className="text-slate-400 mb-6 leading-relaxed">
+                    {solution.description}
+                  </p>
 
-                {/* Features */}
-                <div className="space-y-2">
-                  {solution.features.map((feature, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 * idx }}
-                      className="flex items-center text-sm text-gray-400"
-                    >
-                      <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3" />
-                      {feature}
-                    </motion.div>
-                  ))}
+                  {/* Features */}
+                  <div className="space-y-2">
+                    {solution.features.map((feature, idx) => (
+                      <motion.div
+                        key={idx}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 * idx }}
+                        className="flex items-center text-sm text-slate-400"
+                      >
+                        <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3 shrink-0" />
+                        {feature}
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
-
-                {/* Hover Effect */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-2xl"
-                  initial={{ opacity: 0 }}
-                  animate={{ 
-                    opacity: activeCard === solution.id ? 1 : 0 
-                  }}
-                  transition={{ duration: 0.3 }}
-                />
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
 
         {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
-          className="text-center mt-16"
+          transition={{ delay: 0.4, duration: 0.8 }}
+          className="text-center pb-20"
         >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl
-                       shadow-lg hover:shadow-cyan-500/25 transition-all duration-300
-                       border border-cyan-400/30 hover:border-cyan-400/60"
-          >
-            Explore More Solutions
-          </motion.button>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 bg-transparent text-slate-200 font-bold rounded-xl
+                         shadow-lg transition-all duration-300
+                         border border-slate-600 hover:bg-slate-800/60 hover:border-slate-500"
+            >
+              Explore More Solutions
+            </motion.button>
+          </div>
         </motion.div>
       </div>
     </div>

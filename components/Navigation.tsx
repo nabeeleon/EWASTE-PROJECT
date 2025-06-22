@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useRouter, usePathname } from 'next/navigation'
 import { smoothScroll } from '@/utils/smoothScroll'
 
 const navItems = [
@@ -10,41 +11,54 @@ const navItems = [
   { name: 'AR Experience', href: '#ar' },
   { name: 'Quiz', href: '#quiz' },
   { name: 'Resources', href: '#resources' },
+  { name: 'Team', href: '/team' },
   { name: 'Contact', href: '#contact' }
 ]
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState('home')
+  const [activeSection, setActiveSection] = useState('hero')
+  
+  const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
-
-      // Update active section based on scroll position
-      const sections = document.querySelectorAll('section')
-      const scrollPosition = window.scrollY + window.innerHeight / 3
-
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop
-        const sectionHeight = section.offsetHeight
-        const sectionId = section.id || 'home'
-
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          setActiveSection(sectionId)
-        }
-      })
+      if (pathname === '/') {
+        const sections = document.querySelectorAll('section[id]')
+        const scrollPosition = window.scrollY + window.innerHeight / 3
+        
+        let currentSection = 'hero'
+        Array.from(sections).forEach((section) => {
+          const htmlSection = section as HTMLElement
+          if (scrollPosition >= htmlSection.offsetTop) {
+            currentSection = htmlSection.id
+          }
+        })
+        setActiveSection(currentSection)
+      } else {
+        setActiveSection('')
+      }
     }
-
+    
+    handleScroll()
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [pathname])
 
   const handleNavigation = (href: string) => {
     setIsOpen(false)
-    const targetId = href.replace('#', '')
-    smoothScroll(`#${targetId}`)
+    if (href.startsWith('/')) {
+      router.push(href)
+    } else {
+      if (pathname === '/') {
+        smoothScroll(href)
+      } else {
+        router.push(`/${href}`)
+      }
+    }
   }
 
   return (
@@ -52,36 +66,42 @@ export default function Navigation() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-surface-dark/80 backdrop-blur-md shadow-lg' : 'bg-transparent'
+        isScrolled ? 'bg-gray-950/80 backdrop-blur-md shadow-lg shadow-indigo-500/10' : 'bg-transparent'
       }`}
     >
-      <nav className="container mx-auto px-4 py-4">
+      <nav className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between">
           <button 
-            onClick={() => handleNavigation('#home')}
-            className="text-2xl font-bold text-gradient"
+            onClick={() => handleNavigation('#hero')}
+            className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent"
           >
             E-Waste
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
-            {navItems.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => handleNavigation(item.href)}
-                className={`text-sm font-medium transition-colors hover:text-primary-400 ${
-                  activeSection === item.href.replace('#', '') ? 'text-primary-400' : 'text-gray-300'
-                }`}
-              >
-                {item.name}
-              </button>
-            ))}
+          <div className="hidden md:flex items-center space-x-2">
+            {navItems.map((item) => {
+              const isActive = (pathname === item.href) || (pathname === '/' && activeSection === item.href.substring(1))
+              return (
+                <button
+                  key={item.name}
+                  onClick={() => handleNavigation(item.href)}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ease-in-out
+                    ${ isActive
+                      ? 'bg-indigo-500/20 text-indigo-300 shadow-inner'
+                      : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                    }`
+                  }
+                >
+                  {item.name}
+                </button>
+              )
+            })}
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-gray-300 hover:text-primary-400 transition-colors"
+            className="md:hidden text-gray-300 hover:text-indigo-400 transition-colors"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
@@ -110,21 +130,26 @@ export default function Navigation() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
-              className="md:hidden mt-4"
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="md:hidden mt-4 overflow-hidden"
             >
-              <div className="flex flex-col space-y-4 py-4">
-                {navItems.map((item) => (
-                  <button
-                    key={item.name}
-                    onClick={() => handleNavigation(item.href)}
-                    className={`text-sm font-medium transition-colors hover:text-primary-400 ${
-                      activeSection === item.href.replace('#', '') ? 'text-primary-400' : 'text-gray-300'
-                    }`}
-                  >
-                    {item.name}
-                  </button>
-                ))}
+              <div className="flex flex-col space-y-2 pt-2 pb-4">
+                {navItems.map((item) => {
+                   const isActive = (pathname === item.href) || (pathname === '/' && activeSection === item.href.substring(1))
+                   return (
+                    <button
+                      key={item.name}
+                      onClick={() => handleNavigation(item.href)}
+                      className={`block px-4 py-3 rounded-md text-base font-medium text-left transition-all duration-200 ease-in-out
+                      ${ isActive
+                        ? 'bg-indigo-500/20 text-indigo-300'
+                        : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                      }`}
+                    >
+                      {item.name}
+                    </button>
+                  )
+                })}
               </div>
             </motion.div>
           )}

@@ -59,17 +59,17 @@ const container = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1
-    }
-  }
+      staggerChildren: 0.3,
+    },
+  },
 }
 
 const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
+  hidden: { opacity: 0, y: 50 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
 }
 
-export default function ContactPage() {
+const ContactPage = () => {
   const [formData, setFormData] = useState<FormData>(initialFormData)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
@@ -104,100 +104,29 @@ export default function ContactPage() {
 
   return (
     <PageContainer>
-      <div className="container mx-auto px-4 py-16">
+      <div className="py-16">
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="max-w-4xl mx-auto"
+          className="text-center"
         >
-          <motion.h1 
+          <motion.h1
             variants={item}
-            className="text-4xl md:text-5xl font-bold text-gradient mb-8"
+            className="text-5xl font-extrabold tracking-tight text-white sm:text-6xl"
           >
             Get in Touch
           </motion.h1>
-
-          <motion.p 
+          <motion.p
             variants={item}
-            className="text-xl text-gray-300 mb-12"
+            className="mt-4 max-w-2xl mx-auto text-xl text-gray-400"
           >
-            We're here to help you make a difference in electronic waste recycling.
-            Reach out to us through any of these channels:
+            We'd love to hear from you. Whether you have a question about our project, want to collaborate, or just want to say hi, our door is always open.
           </motion.p>
-
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
-            <motion.div
-              variants={container}
-              initial="hidden"
-              animate="show"
-              className="space-y-6"
-            >
-              {contactInfo.map((info, index) => (
-                <motion.div
-                  key={info.title}
-                  variants={item}
-                  className="bg-surface-dark/80 backdrop-blur-md p-6 rounded-xl border border-primary-500/20"
-                >
-                  <div className="flex items-center space-x-4">
-                    <span className="text-2xl">{info.icon}</span>
-                    <div>
-                      <h3 className="text-gradient font-bold mb-1">{info.title}</h3>
-                      <p className="text-gray-300">{info.value}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            <motion.div
-              variants={container}
-              initial="hidden"
-              animate="show"
-              className="space-y-6"
-            >
-              <motion.div
-                variants={item}
-                className="bg-surface-dark/80 backdrop-blur-md p-6 rounded-xl border border-primary-500/20"
-              >
-                <h3 className="text-gradient font-bold mb-4">Follow Us</h3>
-                <div className="flex space-x-4">
-                  {socialLinks.map((social) => (
-                    <a
-                      key={social.name}
-                      href={social.url}
-                      className="text-2xl hover:text-primary-400 transition-colors"
-                      title={social.name}
-                    >
-                      {social.icon}
-                    </a>
-                  ))}
-                </div>
-              </motion.div>
-
-              <motion.div
-                variants={item}
-                className="bg-surface-dark/80 backdrop-blur-md p-6 rounded-xl border border-primary-500/20"
-              >
-                <h3 className="text-gradient font-bold mb-4">Business Hours</h3>
-                <ul className="space-y-2 text-gray-300">
-                  <li>Monday - Friday: 9:00 AM - 6:00 PM</li>
-                  <li>Saturday: 10:00 AM - 4:00 PM</li>
-                  <li>Sunday: Closed</li>
-                </ul>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          <motion.div
-            variants={item}
-            className="text-center text-gray-400"
-          >
-            <p>© 2024 E-Waste Recycling. All rights reserved.</p>
-            <p className="mt-2">Making electronic recycling accessible and sustainable for everyone.</p>
-          </motion.div>
         </motion.div>
       </div>
     </PageContainer>
   )
-} 
+}
+
+export default ContactPage 

@@ -42,7 +42,7 @@ const questions: Question[] = [
     question: 'What percentage of a smartphone can be recycled?',
     options: ['40%', '60%', '80%', 'Up to 95%'],
     correctAnswer: 'Up to 95%',
-    explanation: 'Up to 95% of a smartphone\'s components can be recycled and reused, including precious metals, plastics, and glass.',
+    explanation: "Up to 95% of a smartphone's components can be recycled and reused, including precious metals, plastics, and glass.",
     category: 'Recycling'
   },
   {
@@ -124,7 +124,7 @@ export default function Quiz() {
 
   const getScoreMessage = () => {
     const percentage = (score / questions.length) * 100
-    if (percentage === 100) return { message: 'Perfect! You\'re an e-waste expert!', icon: FaTrophy, color: 'from-yellow-400 to-orange-500' }
+    if (percentage === 100) return { message: "Perfect! You're an e-waste expert!", icon: FaTrophy, color: 'from-yellow-400 to-orange-500' }
     if (percentage >= 75) return { message: 'Great job! You know your stuff!', icon: FaBrain, color: 'from-blue-400 to-purple-500' }
     if (percentage >= 50) return { message: 'Good effort! Keep learning!', icon: FaLightbulb, color: 'from-green-400 to-blue-500' }
     return { message: 'Time to brush up on e-waste knowledge!', icon: FaLightbulb, color: 'from-orange-400 to-red-500' }
@@ -247,45 +247,40 @@ export default function Quiz() {
         ))}
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 py-20">
+      <div className="relative z-10">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12"
-        >
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-            E-Waste Quiz
-          </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Test your knowledge about electronic waste and recycling. Challenge yourself with these interactive questions!
-          </p>
-        </motion.div>
+        <div className="bg-slate-900/70 py-20 backdrop-blur-sm">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+              E-Waste Quiz
+            </h1>
+            <p className="text-xl text-gray-300 leading-relaxed">
+              Test your knowledge about electronic waste and recycling. Challenge yourself with these interactive questions!
+            </p>
+          </div>
+        </div>
 
         {/* Quiz Container */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="max-w-4xl mx-auto"
-        >
-          <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl 
-                         border border-cyan-500/30 rounded-3xl p-8 md:p-12 shadow-2xl shadow-cyan-500/20">
-            
+        <div className="py-16 bg-slate-900/50 backdrop-blur-lg border-t border-b border-slate-700">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"
+          >
             {/* Progress Bar */}
             <div className="mb-8">
               <div className="flex justify-between items-center mb-4">
-                <div className="text-sm text-gray-400">
+                <div className="text-sm text-slate-400">
                   Question {currentQuestion + 1} of {questions.length}
                 </div>
-                <div className="text-sm text-gray-400">
+                <div className="text-sm text-slate-400">
                   Score: {score}
                 </div>
               </div>
-              <div className="w-full bg-gray-700 rounded-full h-2">
+              <div className="w-full bg-slate-700 rounded-full h-2.5">
                 <motion.div
-                  className="bg-gradient-to-r from-cyan-500 to-blue-600 h-2 rounded-full"
+                  className="bg-gradient-to-r from-cyan-500 to-blue-500 h-2.5 rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
                   transition={{ duration: 0.5 }}
@@ -297,10 +292,10 @@ export default function Quiz() {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="inline-block bg-gradient-to-r from-purple-500/20 to-pink-500/20 
-                         border border-purple-500/30 rounded-full px-4 py-2 mb-6"
+              className="inline-block bg-slate-800/60
+                           border border-slate-700 rounded-full px-4 py-2 mb-6"
             >
-              <span className="text-purple-300 font-medium text-sm">
+              <span className="text-cyan-300 font-medium text-sm">
                 {questions[currentQuestion].category}
               </span>
             </motion.div>
@@ -311,7 +306,7 @@ export default function Quiz() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-2xl md:text-3xl font-bold mb-8 text-white leading-relaxed"
+              className="text-2xl md:text-3xl font-bold mb-8 text-slate-100 leading-relaxed"
             >
               {questions[currentQuestion].question}
             </motion.h3>
@@ -323,7 +318,7 @@ export default function Quiz() {
               animate="visible"
               className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8"
             >
-              {questions[currentQuestion].options.map((option, index) => (
+              {questions[currentQuestion].options.map((option) => (
                 <motion.button
                   key={option}
                   variants={optionVariants}
@@ -333,18 +328,19 @@ export default function Quiz() {
                   }}
                   whileTap={{ scale: selectedAnswer ? 1 : 0.98 }}
                   onClick={() => !selectedAnswer && handleAnswer(option)}
-                  className={`p-6 rounded-xl text-left transition-all duration-300 border-2 ${
-                    selectedAnswer
-                      ? option === questions[currentQuestion].correctAnswer
-                        ? 'bg-green-500/20 border-green-500/50 shadow-lg shadow-green-500/20'
-                        : option === selectedAnswer
-                        ? 'bg-red-500/20 border-red-500/50 shadow-lg shadow-red-500/20'
-                        : 'bg-gray-800/50 border-gray-600/30'
-                      : 'bg-gray-800/50 border-gray-600/30 hover:border-cyan-500/50 hover:bg-gray-700/50'
-                  } ${selectedAnswer && 'cursor-default'}`}
+                  className={`p-5 rounded-xl text-left transition-all duration-300 border-2 w-full text-lg
+                    ${
+                      selectedAnswer
+                        ? option === questions[currentQuestion].correctAnswer
+                          ? 'bg-green-500/30 border-green-500'
+                          : option === selectedAnswer
+                          ? 'bg-red-500/30 border-red-500'
+                          : 'border-slate-700 bg-slate-800/50'
+                        : 'border-slate-700 bg-slate-800/50 hover:border-slate-500 hover:bg-slate-800/80'
+                    } ${selectedAnswer && 'cursor-default'}`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-300 text-lg">{option}</span>
+                    <span className="text-slate-300">{option}</span>
                     {selectedAnswer && (
                       <motion.span
                         initial={{ scale: 0 }}
@@ -352,9 +348,9 @@ export default function Quiz() {
                         transition={{ delay: 0.2 }}
                       >
                         {option === questions[currentQuestion].correctAnswer ? (
-                          <FaCheck className="text-green-500 text-xl" />
+                          <FaCheck className="text-green-400 text-xl" />
                         ) : option === selectedAnswer ? (
-                          <FaTimes className="text-red-500 text-xl" />
+                          <FaTimes className="text-red-400 text-xl" />
                         ) : null}
                       </motion.span>
                     )}
@@ -370,13 +366,14 @@ export default function Quiz() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
-                  className={`p-6 rounded-xl mb-8 border-2 ${
-                    selectedAnswer === questions[currentQuestion].correctAnswer
-                      ? 'bg-green-500/20 border-green-500/50 shadow-lg shadow-green-500/20'
-                      : 'bg-red-500/20 border-red-500/50 shadow-lg shadow-red-500/20'
-                  }`}
+                  className={`p-5 rounded-xl mb-8 border-2 text-lg
+                    ${
+                      selectedAnswer === questions[currentQuestion].correctAnswer
+                        ? 'bg-green-500/20 border-green-500/50'
+                        : 'bg-red-500/20 border-red-500/50'
+                    }`}
                 >
-                  <p className="text-gray-300 text-lg leading-relaxed">
+                  <p className="text-slate-300 leading-relaxed">
                     {questions[currentQuestion].explanation}
                   </p>
                 </motion.div>
@@ -391,15 +388,15 @@ export default function Quiz() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={nextQuestion}
-                className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold 
-                           py-4 px-8 rounded-xl shadow-lg hover:shadow-cyan-500/25 
+                className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold 
+                           py-4 px-6 rounded-xl shadow-lg hover:shadow-blue-500/20
                            transition-all duration-300 border border-cyan-400/30 hover:border-cyan-400/60"
               >
                 {currentQuestion < questions.length - 1 ? 'Next Question' : 'Complete Quiz'}
               </motion.button>
             )}
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </div>
   )
